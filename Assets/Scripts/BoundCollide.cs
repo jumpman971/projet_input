@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoundCollide : MonoBehaviour {
+
+    public bool collideInForward = false;
+
     private void Update()
     {
         // Bit shift the index of the layer (8) to get a bit mask
@@ -41,11 +44,20 @@ public class BoundCollide : MonoBehaviour {
                     }
                 }
                 if (dir[i].z != 0)
-                { 
+                {
                     if (hit.distance <= matrix.x)
                     {
                         p.Velocity.x = 0;
                         p.Velocity.z = 0;
+                        if (i == 0 || i == 1)
+                        {
+                            if (i == 0)
+                                collideInForward = true;
+                            p.onWall = true;
+                        }
+                    } else if (i == 0 || (i == 1 && !collideInForward))
+                    {
+                        p.onWall = false;
                     }
                 }
             } else

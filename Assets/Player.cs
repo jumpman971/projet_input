@@ -14,7 +14,13 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Vector3 Jump;
 
+    [SerializeField]
+    public Vector3 wallJump;
+
+    public int jumpCount;
+
     public bool onGround = false;
+    public bool onWall = false;
 
     // Use this for initialization
     void Start () {
