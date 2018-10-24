@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
 
     public bool onGround = false;
     public bool onWall = false;
+    public bool isWallJumping = false;
 
     // Use this for initialization
     void Start () {

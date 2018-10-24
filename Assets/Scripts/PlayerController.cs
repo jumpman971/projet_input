@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     private int nbJump;
     private float jumpBoost = 1.2f;
 
+    private float wallJumpStartTime = 0f;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -18,9 +20,15 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float h = Input.GetAxis("Horizontal");
-        //float v = Input.GetAxis("Vertical");
         Player p = GetComponent<Player>();
+        float h = 0;
+        if (p.isWallJumping && (wallJumpStartTime + 1 < Time.time || p.onGround || (p.onWall && !p.onGround))) {
+            p.isWallJumping = false;
+        }
+
+        if (!p.isWallJumping)
+            h = Input.GetAxis("Horizontal");
+        //float v = Input.GetAxis("Vertical");
         BoundCollide c = GetComponent<BoundCollide>();
 
         if (p.onGround)
@@ -34,6 +42,8 @@ public class PlayerController : MonoBehaviour {
                 if (c.collideInForward)
                     tmp = new Vector3(-p.wallJump.x, p.wallJump.y);
                 p.Velocity += tmp;
+                p.isWallJumping = true;
+                wallJumpStartTime = Time.time;
             } else if (nbJump < p.jumpCount)
             {
                 if (nbJump > 0)
