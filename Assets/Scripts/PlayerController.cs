@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Vector3 tmp = new Vector3(p.wallJump.x, p.wallJump.y);
                 if (c.collideXDir == 1) {
-                    Debug.Log("wall jump forward");
+                    //Debug.Log("wall jump forward");
                     tmp.x = -tmp.x;
                 }
                 p.Velocity += tmp;
