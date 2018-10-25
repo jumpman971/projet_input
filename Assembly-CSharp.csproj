@@ -62,9 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\axis_color.cs" />
-    <Compile Include="Assets\Scripts\BoundCollide.cs" />
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerCollider.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Logiciel/Unity 3D Games/projet_input/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

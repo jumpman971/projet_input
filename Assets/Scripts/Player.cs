@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    public int speed;
+
     [SerializeField]
     public Vector3 Velocity;
 
