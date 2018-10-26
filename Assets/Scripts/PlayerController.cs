@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour {
     private int nbWallJump = 0;
     private float wallJumpStartTime = 0f;
 
+    private float lastHValue;
+
 	// Use this for initialization
 	void Start () {
-		
+        lastHValue = 0;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +35,8 @@ public class PlayerController : MonoBehaviour {
         float ajustedSpeed = p.speed / 4.0f;
 
         v = Input.GetAxis("Vertical") * ajustedSpeed;
-        float h = Input.GetAxis("Horizontal") * ajustedSpeed;
+        float trueH = Input.GetAxis("Horizontal");
+        float h = trueH * ajustedSpeed;
         PlayerCollider c = GetComponent<PlayerCollider>();
 
         if (p.onGround) {
@@ -41,6 +44,20 @@ public class PlayerController : MonoBehaviour {
             nbWallJump = 0;
             if (p.isWallJumping)
                 p.isWallJumping = false;
+            p.hasDashed = false;
+        }
+
+        if (trueH > 0 && lastHValue < 0)
+            p.Velocity.x += p.backBoost;
+        else if (trueH < 0 && lastHValue > 0)
+            p.Velocity.x -= p.backBoost;
+
+        if (Input.GetButtonDown("Dash") && !p.hasDashed) {
+            if (h > 0)
+                p.Velocity.x += p.dashBoost;
+            else
+                p.Velocity.x -= p.dashBoost;
+            p.hasDashed = true;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -72,5 +89,7 @@ public class PlayerController : MonoBehaviour {
             v = 0;
 
         p.Velocity += new Vector3(h*multiplier, 0, 0f);
+
+        lastHValue = trueH;
 	}
 }

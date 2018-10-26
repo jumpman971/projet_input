@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public int speed;
+    public int backBoost;
+    public int dashBoost;
 
     [SerializeField]
     public Vector3 Velocity;
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour {
     public bool onGround = false;
     public bool onWall = false;
     public bool isWallJumping = false;
+    public bool hasDashed = false;
 
     // Use this for initialization
     void Start () {
