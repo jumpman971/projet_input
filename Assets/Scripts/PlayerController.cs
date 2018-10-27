@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour {
 
     private float lastHValue;
 
-	// Use this for initialization
-	void Start () {
+    private bool m_isAxisInUse = false;
+
+    // Use this for initialization
+    void Start () {
         lastHValue = 0;
 	}
 	
@@ -34,9 +36,22 @@ public class PlayerController : MonoBehaviour {
             h = Input.GetAxis("Horizontal") * (p.speed/4.0f);*/
         float ajustedSpeed = p.speed / 4.0f;
 
+        float h = Input.GetAxis("Horizontal");
+
+        if (Input.GetAxis("Horizontal") != 0) {
+            if (m_isAxisInUse == false) {
+                // Call your event function here.
+                m_isAxisInUse = true;
+            }
+        }
+        if (Input.GetAxis("Horizontal") == 0) {
+            m_isAxisInUse = false;
+        }
+
         v = Input.GetAxis("Vertical") * ajustedSpeed;
-        float trueH = Input.GetAxis("Horizontal");
-        float h = trueH * ajustedSpeed;
+        //float trueH = Input.GetAxis("Horizontal");
+        h = h * ajustedSpeed;
+
         PlayerCollider c = GetComponent<PlayerCollider>();
 
         if (p.onGround) {
@@ -82,6 +97,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+        
+
         if (p.isWallJumping)
             h = -h;
 
@@ -90,6 +107,6 @@ public class PlayerController : MonoBehaviour {
 
         p.Velocity += new Vector3(h*multiplier, 0, 0f);
 
-        lastHValue = trueH;
+        //lastHValue = trueH;
 	}
 }
