@@ -17,7 +17,11 @@ public class PlayerController : MonoBehaviour {
 
     private float lastHValue;
 
-    private bool m_isAxisInUse = false;
+    public bool inverseAxis = false;
+    public bool stopInverseAxis = false;
+    private bool stickDownLast;
+
+    public float startDashTime;
 
     // Use this for initialization
     void Start () {
@@ -36,42 +40,40 @@ public class PlayerController : MonoBehaviour {
             h = Input.GetAxis("Horizontal") * (p.speed/4.0f);*/
         float ajustedSpeed = p.speed / 4.0f;
 
-        float h = Input.GetAxis("Horizontal");
-
-        if (Input.GetAxis("Horizontal") != 0) {
-            if (m_isAxisInUse == false) {
-                // Call your event function here.
-                m_isAxisInUse = true;
-            }
-        }
-        if (Input.GetAxis("Horizontal") == 0) {
-            m_isAxisInUse = false;
-        }
+        float h = Input.GetAxis("Horizontal") * ajustedSpeed;
 
         v = Input.GetAxis("Vertical") * ajustedSpeed;
         //float trueH = Input.GetAxis("Horizontal");
-        h = h * ajustedSpeed;
 
         PlayerCollider c = GetComponent<PlayerCollider>();
 
         if (p.onGround) {
             nbJump = 0;
             nbWallJump = 0;
-            if (p.isWallJumping)
+            if (p.isWallJumping) {
                 p.isWallJumping = false;
+                //inverseAxis = false;
+                //stopInverseAxis = false;
+            }
             p.hasDashed = false;
         }
 
-        if (trueH > 0 && lastHValue < 0)
+        /*if (GetAxisDown("Horizontal") && p.isWallJumping && inverseAxis) {
+            inverseAxis = false;
+            Debug.Log("1");
+        }*/
+
+        /*if (trueH > 0 && lastHValue < 0)
             p.Velocity.x += p.backBoost;
         else if (trueH < 0 && lastHValue > 0)
-            p.Velocity.x -= p.backBoost;
+            p.Velocity.x -= p.backBoost;*/
 
-        if (Input.GetButtonDown("Dash") && !p.hasDashed) {
+        if (Input.GetButtonDown("Dash") && !p.hasDashed && startDashTime + 1 < Time.time) {
             if (h > 0)
                 p.Velocity.x += p.dashBoost;
             else
                 p.Velocity.x -= p.dashBoost;
+            startDashTime = Time.time;
             p.hasDashed = true;
         }
 
@@ -87,6 +89,8 @@ public class PlayerController : MonoBehaviour {
                 p.Velocity += tmp;
                 p.isWallJumping = true;
                 ++nbWallJump;
+                p.onWall = false;
+                //stopInverseAxis = false;
             } else if (nbJump < p.jumpCount)
             {
                 if (nbJump > 0)
@@ -97,15 +101,33 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        
+        /*if (h != 0) {
+            if (!stickDownLast) {
+                stopInverseAxis = true;
+                Debug.Log("1");
+            }
 
-        if (p.isWallJumping)
+            stickDownLast = true;
+        } else
+            stickDownLast = false;*/
+
+        if (p.onWall && !p.onGround) {
+
+        }
+
+        if (p.onBouncingPlate) {
+            p.Velocity += p.bouncingJump;
+            p.onBouncingPlate = false;
+        }
+
+        if (p.isWallJumping) {
             h = -h;
+        }
 
         if (!(v < 0))
             v = 0;
 
-        p.Velocity += new Vector3(h*multiplier, 0, 0f);
+        p.Velocity += new Vector3(h*multiplier, v, 0f);
 
         //lastHValue = trueH;
 	}

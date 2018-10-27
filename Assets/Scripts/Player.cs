@@ -21,10 +21,14 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Vector3 wallJump;
 
+    [SerializeField]
+    public Vector3 bouncingJump;
+
     public int jumpCount;
 
     public bool onGround = false;
     public bool onWall = false;
+    public bool onBouncingPlate = false;
     public bool isWallJumping = false;
     public bool hasDashed = false;
 

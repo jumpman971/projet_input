@@ -46,8 +46,15 @@ public class PlayerCollider : MonoBehaviour {
                 {
                     if (hit.distance <= matrix.y)
                     {
-                        if (!(hit.collider.tag.Equals("CrossablePlate") && i == V_UP)) {
-                            p.Velocity.y = 0;
+                        
+                        bool isCrossablePlate = hit.collider.tag.Equals("CrossablePlate");
+                        if (!(isCrossablePlate && i == V_UP)) {
+                            bool isBouncingPlate = hit.collider.tag.Equals("BouncingPlate");
+                            Debug.Log(isBouncingPlate ? "true" : "false");
+                            if (isBouncingPlate && i == V_DOWN)
+                                p.onBouncingPlate = true;
+                            else
+                                p.Velocity.y = 0;
                             if (i == V_DOWN) {
                                 p.onGround = true;
                             }
