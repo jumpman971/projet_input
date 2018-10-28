@@ -503,6 +503,8 @@ MonoBehaviour:
   multiplier: 0.2
   inverseAxis: 0
   stopInverseAxis: 0
+  stickDownLast: 0
+  holdingH: 0
   startDashTime: 0
 --- !u!65 &624033681
 BoxCollider:
@@ -611,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  backBoost: 0
+  backBoost: 3
   dashBoost: 2
   slidingValue: -0.02
   Velocity: {x: 0, y: 0, z: 0}
@@ -627,6 +629,8 @@ MonoBehaviour:
   isWallJumping: 0
   hasDashed: 0
   isSliding: 0
+  isTryingToGoDown: 0
+  hasBackBoost: 0
 --- !u!1001 &726049911
 Prefab:
   m_ObjectHideFlags: 0
