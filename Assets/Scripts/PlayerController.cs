@@ -3,25 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-    [SerializeField]
-    private float multiplier;
+public class PlayerController : MonoBehaviour { 
+    private float multiplier = 0.2f;
 
     private int nbJump;
     private float jumpBoost = 1.2f;
 
     private int nbWallJump = 0;
-    public float startedHForWallJump;
+    private float startedHForWallJump;
 
     private float rawH;
-    public bool stickDownLast;
+    private bool stickDownLast;
     private float startTimeHoldStick;
     private bool startHoldingStick = false;
     private float startTimeStopHoldStick;
     private bool stoppingHoldingStick = false;
-    public float holdingH = 0;
+    private float holdingH = 0;
 
-    public float startDashTime;
+    private float startDashTime;
 
     // Use this for initialization
     void Start () {

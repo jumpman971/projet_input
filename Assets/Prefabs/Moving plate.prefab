@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114359730851134580}
   m_Layer: 0
   m_Name: Moving plate
-  m_TagString: Untagged
+  m_TagString: MovingPlate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

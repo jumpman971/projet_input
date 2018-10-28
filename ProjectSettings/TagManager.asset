@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CrossablePlate
   - BouncingPlate
+  - MovingPlate
   layers:
   - Default
   - TransparentFX
