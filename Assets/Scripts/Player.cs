@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     public int speed;
     public int backBoost;
     public int dashBoost;
+    public float slidingValue;
 
     [SerializeField]
     public Vector3 Velocity;
@@ -31,6 +32,8 @@ public class Player : MonoBehaviour {
     public bool onBouncingPlate = false;
     public bool isWallJumping = false;
     public bool hasDashed = false;
+    public bool isSliding = false;
+    public bool isTryingToGoDown = false;
 
     // Use this for initialization
     void Start () {

@@ -55,8 +55,10 @@ public class PlayerController : MonoBehaviour {
                 //inverseAxis = false;
                 //stopInverseAxis = false;
             }
+            p.isSliding = false;
             p.hasDashed = false;
-        }
+        } else if (!p.onWall)
+            p.isSliding = false;
 
         /*if (GetAxisDown("Horizontal") && p.isWallJumping && inverseAxis) {
             inverseAxis = false;
@@ -112,7 +114,8 @@ public class PlayerController : MonoBehaviour {
             stickDownLast = false;*/
 
         if (p.onWall && !p.onGround) {
-
+            p.isSliding = true;
+            p.Velocity.y += (-p.Gravity.y) + p.slidingValue;
         }
 
         if (p.onBouncingPlate) {
@@ -120,14 +123,18 @@ public class PlayerController : MonoBehaviour {
             p.onBouncingPlate = false;
         }
 
-        if (p.isWallJumping) {
+        /*if (p.isWallJumping) {
             h = -h;
+        }*/
+
+        if (!(v < 0)) {
+            p.isTryingToGoDown = false;
+        } else {
+            //p.Velocity.y -= 10;
+            p.isTryingToGoDown = true;
         }
 
-        if (!(v < 0))
-            v = 0;
-
-        p.Velocity += new Vector3(h*multiplier, v, 0f);
+        p.Velocity += new Vector3(h*multiplier, 0f, 0f);
 
         //lastHValue = trueH;
 	}
