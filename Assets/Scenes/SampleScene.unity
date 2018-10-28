@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  backBoost: 2
+  backBoost: 2.5
   dashBoost: 2
   slidingValue: -0.02
   Velocity: {x: 0, y: 0, z: 0}
@@ -582,6 +582,8 @@ MonoBehaviour:
   isSliding: 0
   isTryingToGoDown: 0
   hasBackBoost: 0
+  onMovingPlate: 0
+  currMovingPlate: {fileID: 0}
 --- !u!1001 &726049911
 Prefab:
   m_ObjectHideFlags: 0

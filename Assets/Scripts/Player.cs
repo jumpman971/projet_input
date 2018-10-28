@@ -45,6 +45,8 @@ public class Player : MonoBehaviour {
     public bool hasBackBoost = false;
     [HideInInspector]
     public bool onMovingPlate = false;
+    [HideInInspector]
+    public GameObject currMovingPlate;
 
     // Use this for initialization
     void Start () {

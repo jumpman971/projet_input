@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour {
             p.hasDashed = false;
         } else if (!p.onWall)
             p.isSliding = false;
+        else {
+            p.onMovingPlate = false;
+            p.currMovingPlate = null;
+        }
 
         if (Input.GetButtonDown("Dash") && !p.hasDashed && startDashTime + 1 < Time.time) {
             if (h > 0)
@@ -73,6 +77,8 @@ public class PlayerController : MonoBehaviour {
                 startedHForWallJump = rawH;
             } else if (nbJump < p.jumpCount)
             {
+                p.onMovingPlate = false;
+                p.currMovingPlate = null;
                 if (nbJump > 0)
                     p.Velocity += p.Jump * jumpBoost;
                 else
@@ -106,7 +112,7 @@ public class PlayerController : MonoBehaviour {
             if (!stoppingHoldingStick) {
                 startTimeStopHoldStick = Time.time;
                 stoppingHoldingStick = true;
-            } else if (rawH == 0 && startTimeStopHoldStick + 0.1f < Time.time) {
+            } else if (rawH == 0 && startTimeStopHoldStick + 0.2f < Time.time) {
                 stickDownLast = false;
                 startHoldingStick = false;
                 stoppingHoldingStick = false;
@@ -123,11 +129,13 @@ public class PlayerController : MonoBehaviour {
         if (p.onBouncingPlate) {
             p.Velocity += p.bouncingJump;
             p.onBouncingPlate = false;
+        } else if (p.onMovingPlate) {
+            p.Velocity += p.currMovingPlate.GetComponent<MovingObject>().Velocity/8.0f;
         }
 
         if (p.isWallJumping && startedHForWallJump == rawH) {
             h = -h;
-        } else {
+        } else if (!p.onGround) {
             startedHForWallJump = 0;
         }
 
