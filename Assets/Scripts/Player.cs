@@ -43,6 +43,8 @@ public class Player : MonoBehaviour {
     public bool isTryingToGoDown = false;
     [HideInInspector]
     public bool hasBackBoost = false;
+    [HideInInspector]
+    public bool onMovingPlate = false;
 
     // Use this for initialization
     void Start () {

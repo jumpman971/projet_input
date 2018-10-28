@@ -60,6 +60,8 @@ public class PlayerCollider : MonoBehaviour {
 
                             if (i == V_DOWN) {
                                 p.onGround = true;
+                                if (hit.collider.tag.Equals("MovingPlate"))
+                                    p.onMovingPlate = true;
                             }
                         }
                     } else if (i == V_DOWN)
