@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public int speed;
-    public int backBoost;
-    public int dashBoost;
+    public float speed;
+    public float backBoost;
+    public float dashBoost;
     public float slidingValue;
 
     [SerializeField]
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
     public bool hasDashed = false;
     public bool isSliding = false;
     public bool isTryingToGoDown = false;
+    public bool hasBackBoost = false;
 
     // Use this for initialization
     void Start () {

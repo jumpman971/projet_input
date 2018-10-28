@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float v;
+    
 
     [SerializeField]
     private float multiplier;
@@ -15,17 +16,23 @@ public class PlayerController : MonoBehaviour {
     private int nbWallJump = 0;
     private float wallJumpStartTime = 0f;
 
-    private float lastHValue;
+    private float rawH;
+    private float lastH;
 
     public bool inverseAxis = false;
     public bool stopInverseAxis = false;
-    private bool stickDownLast;
+    public bool stickDownLast;
+    private float startTimeHoldStick;
+    private bool startHoldingStick = false;
+    private float startTimeStopHoldStick;
+    private bool stoppingHoldingStick = false;
+    public float holdingH = 0;
 
     public float startDashTime;
 
     // Use this for initialization
     void Start () {
-        lastHValue = 0;
+        lastH = 0;
 	}
 	
 	// Update is called once per frame
@@ -40,6 +47,7 @@ public class PlayerController : MonoBehaviour {
             h = Input.GetAxis("Horizontal") * (p.speed/4.0f);*/
         float ajustedSpeed = p.speed / 4.0f;
 
+        rawH = Input.GetAxisRaw("Horizontal");
         float h = Input.GetAxis("Horizontal") * ajustedSpeed;
 
         v = Input.GetAxis("Vertical") * ajustedSpeed;
@@ -103,15 +111,40 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        /*if (h != 0) {
-            if (!stickDownLast) {
-                stopInverseAxis = true;
-                Debug.Log("1");
+        if (p.onGround && stickDownLast && !p.hasBackBoost) {
+            //Debug.Log("lastH: " + lastH + " && h: "+ rawH);
+            if (holdingH < 0 && rawH > 0) {
+                p.Velocity.x += p.backBoost;
+                p.hasBackBoost = true;
+            } else if (holdingH > 0 && rawH < 0) {
+                p.Velocity.x -= p.backBoost;
+                p.hasBackBoost = true;
             }
+        }
 
-            stickDownLast = true;
-        } else
-            stickDownLast = false;*/
+        if (rawH != 0) {
+            if (!stickDownLast) {
+                if (!startHoldingStick) {
+                    startTimeHoldStick = Time.time;
+                    startHoldingStick = true;
+                    holdingH = rawH;
+                } else if (holdingH == rawH && startTimeHoldStick + 0.1f < Time.time) {
+                    stickDownLast = true;
+                    startHoldingStick = false;
+                }
+            }
+        } else if (stickDownLast) {
+            if (!stoppingHoldingStick) {
+                startTimeStopHoldStick = Time.time;
+                stoppingHoldingStick = true;
+            } else if (rawH == 0 && startTimeStopHoldStick + 0.1f < Time.time) {
+                stickDownLast = false;
+                startHoldingStick = false;
+                stoppingHoldingStick = false;
+                holdingH = 0;
+                p.hasBackBoost = false;
+            }
+        }
 
         if (p.onWall && !p.onGround) {
             p.isSliding = true;
@@ -127,15 +160,13 @@ public class PlayerController : MonoBehaviour {
             h = -h;
         }*/
 
-        if (!(v < 0)) {
-            p.isTryingToGoDown = false;
-        } else {
-            //p.Velocity.y -= 10;
+        if (v < 0)
             p.isTryingToGoDown = true;
-        }
+        else
+            p.isTryingToGoDown = false;
 
         p.Velocity += new Vector3(h*multiplier, 0f, 0f);
 
-        //lastHValue = trueH;
+        //lastH = rawH;
 	}
 }
