@@ -499,7 +499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098c61174239fc14ab9261c3584647d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v: 0
   multiplier: 0.2
   inverseAxis: 0
   stopInverseAxis: 0
@@ -585,7 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collideXDir: 0
-  cubeWidth: {x: 1, y: 1, z: 1}
+  cubeOffset: {x: 0.5, y: 0.5, z: 0}
 --- !u!54 &624033686
 Rigidbody:
   m_ObjectHideFlags: 0

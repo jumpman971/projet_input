@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public float v;
-    
-
     [SerializeField]
     private float multiplier;
 
@@ -49,9 +46,7 @@ public class PlayerController : MonoBehaviour {
 
         rawH = Input.GetAxisRaw("Horizontal");
         float h = Input.GetAxis("Horizontal") * ajustedSpeed;
-
-        v = Input.GetAxis("Vertical") * ajustedSpeed;
-        //float trueH = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical") * ajustedSpeed;
 
         PlayerCollider c = GetComponent<PlayerCollider>();
 
@@ -72,12 +67,7 @@ public class PlayerController : MonoBehaviour {
             inverseAxis = false;
             Debug.Log("1");
         }*/
-
-        /*if (trueH > 0 && lastHValue < 0)
-            p.Velocity.x += p.backBoost;
-        else if (trueH < 0 && lastHValue > 0)
-            p.Velocity.x -= p.backBoost;*/
-
+        
         if (Input.GetButtonDown("Dash") && !p.hasDashed && startDashTime + 1 < Time.time) {
             if (h > 0)
                 p.Velocity.x += p.dashBoost;
@@ -112,7 +102,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (p.onGround && stickDownLast && !p.hasBackBoost) {
-            //Debug.Log("lastH: " + lastH + " && h: "+ rawH);
             if (holdingH < 0 && rawH > 0) {
                 p.Velocity.x += p.backBoost;
                 p.hasBackBoost = true;
@@ -166,7 +155,5 @@ public class PlayerController : MonoBehaviour {
             p.isTryingToGoDown = false;
 
         p.Velocity += new Vector3(h*multiplier, 0f, 0f);
-
-        //lastH = rawH;
 	}
 }

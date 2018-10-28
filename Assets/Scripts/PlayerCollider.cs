@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCollider : MonoBehaviour {
 
     public int collideXDir;
-    public Vector3 cubeWidth;
+    public Vector3 cubeOffset;
 
     private static int V_FORWARD = 0;
     private static int V_BACKWARD = 1;
@@ -15,6 +15,7 @@ public class PlayerCollider : MonoBehaviour {
     private void Start()
     {
         collideXDir = 0;
+        //cubeOffset = new Vector2(0.5f, 0.5f);
     }
 
     private void Update()
@@ -41,6 +42,7 @@ public class PlayerCollider : MonoBehaviour {
                 Debug.DrawRay(transform.position, transform.TransformDirection(dir[i]) * hit.distance, Color.yellow);
 
                 Vector3 matrix = new Vector3(p.Velocity.x*dir[i].z, p.Velocity.y * dir[i].y, 0);
+                matrix += cubeOffset;
 
                 if (dir[i].y != 0)
                 {
@@ -50,8 +52,9 @@ public class PlayerCollider : MonoBehaviour {
                          if (!(isCrossablePlate && i == V_UP) && !(isCrossablePlate && i == V_DOWN && p.isTryingToGoDown)) {
                             if (hit.collider.tag.Equals("BouncingPlate") && i == V_DOWN)
                                 p.onBouncingPlate = true;
-                            else
+                            else {
                                 p.Velocity.y = 0;
+                            }
 
                             if (i == V_DOWN) {
                                 p.onGround = true;
