@@ -11,64 +11,45 @@ public class PlayerController : MonoBehaviour {
     private float jumpBoost = 1.2f;
 
     private int nbWallJump = 0;
-    private float wallJumpStartTime = 0f;
+    public float startedHForWallJump;
 
     private float rawH;
-    private float lastH;
-
-    public bool inverseAxis = false;
-    public bool stopInverseAxis = false;
     public bool stickDownLast;
     private float startTimeHoldStick;
     private bool startHoldingStick = false;
     private float startTimeStopHoldStick;
     private bool stoppingHoldingStick = false;
     public float holdingH = 0;
-    public float startedHForWallJump;
 
     public float startDashTime;
 
     // Use this for initialization
     void Start () {
-        lastH = 0;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
         Player p = GetComponent<Player>();
-        /*float h = 0;
-        if (p.isWallJumping && (wallJumpStartTime + 1 < Time.time || p.onGround || (p.onWall && !p.onGround))) {
-            p.isWallJumping = false;
-        }
+        PlayerCollider c = GetComponent<PlayerCollider>();
 
-        if (!p.isWallJumping)
-            h = Input.GetAxis("Horizontal") * (p.speed/4.0f);*/
         float ajustedSpeed = p.speed / 4.0f;
 
         rawH = Input.GetAxisRaw("Horizontal");
         float h = Input.GetAxis("Horizontal") * ajustedSpeed;
         float v = Input.GetAxis("Vertical") * ajustedSpeed;
 
-        PlayerCollider c = GetComponent<PlayerCollider>();
-
         if (p.onGround) {
             nbJump = 0;
             nbWallJump = 0;
             if (p.isWallJumping) {
                 p.isWallJumping = false;
-                //inverseAxis = false;
-                //stopInverseAxis = false;
             }
             p.isSliding = false;
             p.hasDashed = false;
         } else if (!p.onWall)
             p.isSliding = false;
 
-        /*if (GetAxisDown("Horizontal") && p.isWallJumping && inverseAxis) {
-            inverseAxis = false;
-            Debug.Log("1");
-        }*/
-        
         if (Input.GetButtonDown("Dash") && !p.hasDashed && startDashTime + 1 < Time.time) {
             if (h > 0)
                 p.Velocity.x += p.dashBoost;
@@ -91,7 +72,6 @@ public class PlayerController : MonoBehaviour {
                 ++nbWallJump;
                 p.onWall = false;
                 startedHForWallJump = rawH;
-                //stopInverseAxis = false;
             } else if (nbJump < p.jumpCount)
             {
                 if (nbJump > 0)

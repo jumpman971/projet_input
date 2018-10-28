@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0, z: 0}
   LastLocation: {x: 0, y: 0, z: 0}
-  firstMovingBound: {x: -3.5, y: 0, z: 0}
-  secondMovingBound: {x: 3.5, y: 0, z: 0}
+  firstMovingBound: {x: -17, y: 0, z: 0}
+  secondMovingBound: {x: 17, y: 0, z: 0}
+  speed: 0.5
   timeBeforeNextMove: 2
