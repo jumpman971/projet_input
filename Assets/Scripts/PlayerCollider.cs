@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerCollider : MonoBehaviour {
 
-    public int collideXDir;
-    public Vector3 cubeOffset;
+    [HideInInspector]
+    public int collideXDir { get; private set; }
+
+    private Vector3 cubeOffset;
 
     private static int V_FORWARD = 0;
     private static int V_BACKWARD = 1;
@@ -15,7 +17,7 @@ public class PlayerCollider : MonoBehaviour {
     private void Start()
     {
         collideXDir = 0;
-        //cubeOffset = new Vector2(0.5f, 0.5f);
+        cubeOffset = new Vector2(0.5f, 0.5f);
     }
 
     private void Update()

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     private float startTimeStopHoldStick;
     private bool stoppingHoldingStick = false;
     public float holdingH = 0;
+    public float startedHForWallJump;
 
     public float startDashTime;
 
@@ -83,13 +84,13 @@ public class PlayerController : MonoBehaviour {
             {
                 Vector3 tmp = new Vector3(p.wallJump.x, p.wallJump.y);
                 if (c.collideXDir == 1) {
-                    //Debug.Log("wall jump forward");
                     tmp.x = -tmp.x;
                 }
                 p.Velocity += tmp;
                 p.isWallJumping = true;
                 ++nbWallJump;
                 p.onWall = false;
+                startedHForWallJump = rawH;
                 //stopInverseAxis = false;
             } else if (nbJump < p.jumpCount)
             {
@@ -145,9 +146,11 @@ public class PlayerController : MonoBehaviour {
             p.onBouncingPlate = false;
         }
 
-        /*if (p.isWallJumping) {
+        if (p.isWallJumping && startedHForWallJump == rawH) {
             h = -h;
-        }*/
+        } else {
+            startedHForWallJump = 0;
+        }
 
         if (v < 0)
             p.isTryingToGoDown = true;

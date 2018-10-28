@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingObject : MonoBehaviour {
-    [SerializeField]
+    [HideInInspector]
     public Vector3 Velocity;
-
+    [HideInInspector]
     public Vector3 LastLocation;
 
     public Vector3 firstMovingBound;
     public Vector3 secondMovingBound;
-
     public float speed;
 
     public float timeBeforeNextMove;

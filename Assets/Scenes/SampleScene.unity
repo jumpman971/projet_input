@@ -504,6 +504,7 @@ MonoBehaviour:
   stopInverseAxis: 0
   stickDownLast: 0
   holdingH: 0
+  startedHForWallJump: 0
   startDashTime: 0
 --- !u!65 &624033681
 BoxCollider:
@@ -583,8 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e942a108f5a233848955cfbe99085f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideXDir: 0
-  cubeOffset: {x: 0.5, y: 0.5, z: 0}
 --- !u!54 &624033686
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1447,6 +1446,11 @@ Prefab:
     - target: {fileID: 114359730851134580, guid: 25f80fc687c003b408f7e1f0b09b34f1,
         type: 2}
       propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359730851134580, guid: 25f80fc687c003b408f7e1f0b09b34f1,
+        type: 2}
+      propertyPath: timeBeforeNextMove
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 
     [SerializeField]
     public Vector3 Velocity;
-
+    [HideInInspector]
     public Vector3 LastLocation;
 
     [SerializeField]
@@ -27,13 +27,21 @@ public class Player : MonoBehaviour {
 
     public int jumpCount;
 
+    [HideInInspector]
     public bool onGround = false;
+    [HideInInspector]
     public bool onWall = false;
+    [HideInInspector]
     public bool onBouncingPlate = false;
+    [HideInInspector]
     public bool isWallJumping = false;
+    [HideInInspector]
     public bool hasDashed = false;
+    [HideInInspector]
     public bool isSliding = false;
+    [HideInInspector]
     public bool isTryingToGoDown = false;
+    [HideInInspector]
     public bool hasBackBoost = false;
 
     // Use this for initialization
